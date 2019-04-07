@@ -1,0 +1,4 @@
+#Sun Apr 07 22:30:26 EEST 2019
+base.0=D\:\\3\\diplom\\headmachine\\glassespart\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\7
+path.0=classes.dex
+renamed.0=classes.dex
