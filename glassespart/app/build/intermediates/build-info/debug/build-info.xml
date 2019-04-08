@@ -5,28 +5,23 @@
     build-mode="COLD"
     density="xxhdpi"
     format="10"
-    ir-eligibility="FIELD_REMOVED"
     plugin-version="3.3.2"
-    timestamp="1554751621379"
+    timestamp="1554752049925"
     token="-5571370070829467689"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="472" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="62" />
+        duration="0" />
     <task
         name="verifier"
-        duration="3" />
-
-    <artifact
-        location="D:\3\diplom\headmachine\glassespart\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
-        type="SPLIT" />
+        duration="0" />
 
     <build
         build-mode="FULL"
@@ -81,5 +76,9 @@
             location="D:\3\diplom\headmachine\glassespart\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
     </build>
+    <build
+        build-mode="COLD"
+        timestamp="1554752049925"
+        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>
