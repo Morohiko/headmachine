@@ -56,9 +56,14 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
                 recvStream = new DataInputStream(socket.getInputStream());
             }
 
-            for (int i = 0; i < 20; i++) {
-                byte message = recvStream.readByte();
-                Log.d("DEBUG", "message = " + message);
+            int buffSize = 8;
+            int size = 0;
+
+            while (size >= 0) {
+                byte[] message = new byte[buffSize];
+                size = recvStream.read(message, 0, buffSize);
+                String text = new String(message);
+                Log.d("DEBUG", "received message = " + text + ", size = " + size);
             }
             recvStream.close();
 
@@ -107,6 +112,9 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
                     break;
                 case SEND_MESSAGE:
                     sendMessage(msgCtx.message);
+                    break;
+                case RECEIVE_MESSAGE:
+                    receiveMessage();
                     break;
                 default:
                     Log.d("DEBUG", "dont know operation");

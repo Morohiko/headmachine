@@ -13,15 +13,14 @@ import com.example.glassespart.network.ConnectionCtx;
 import com.example.glassespart.network.WiFi;
 import com.example.glassespart.network.WifiTCPSocket;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
     private Gyroscope gyroscope;
 
     ConnectionCtx message;
     private void configureWindowResources() {
         Button startBtn = findViewById(R.id.startBtn);
-        Button dbgBtn = findViewById(R.id.dbgBtn);
+        Button recvMsgBtb = findViewById(R.id.recvMsgBtn);
+        Button sendMsgBtb = findViewById(R.id.sendMsgBtn);
         Button connectBtn = findViewById(R.id.connectBtn);
         Button disconnectBtn = findViewById(R.id.disconnectBtn);
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("DEBUG","connect Button is clicked");
-                String ipAddr = "192.168.43.151";
+                String ipAddr = "192.168.43.154";
                 int port = 3333;
                 message.setIpAddress(ipAddr);
                 message.setPortNumber(port);
@@ -52,13 +51,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dbgBtn.setOnClickListener(new View.OnClickListener() {
+        sendMsgBtb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","debug Button is clicked");
+                Log.d("DEBUG","send Msg Button is clicked");
                 message.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
-                //wifiSocket.sendMessage();
+            }
+        });
 
+        recvMsgBtb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DEBUG","recv Msg Button is clicked");
+                message.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
             }
         });
     }
