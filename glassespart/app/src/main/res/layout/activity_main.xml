@@ -6,13 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/dbgBtn"
+        android:layout_width="194dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="105dp"
+        android:text="DebugButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/disconnectBtn" />
+
+    <Button
+        android:id="@+id/connectBtn"
+        android:layout_width="185dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="48dp"
+        android:text="ConnectButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startBtn" />
+
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="184dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="48dp"
+        android:text="startBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/disconnectBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="68dp"
+        android:text="disconnectBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connectBtn" />
 
 </android.support.constraint.ConstraintLayout>
