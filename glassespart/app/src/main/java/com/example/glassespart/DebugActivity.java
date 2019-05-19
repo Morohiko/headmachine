@@ -12,42 +12,44 @@ import android.widget.Button;
 import com.example.glassespart.network.ConnectionCtx;
 import com.example.glassespart.network.WiFi;
 import com.example.glassespart.network.WifiTCPSocket;
+import com.example.glassespart.network.WifiUDPSocket;
 
 public class DebugActivity extends AppCompatActivity {
-    private Gyroscope gyroscope;
+    private ConnectionCtx TCPContext;
+    private ConnectionCtx UDPContext;
 
-    ConnectionCtx message;
-    private void configureWindowResources() {
-        Button startBtn = findViewById(R.id.startBtn);
-        Button recvMsgBtb = findViewById(R.id.recvMsgTCPBtn);
-        Button sendMsgBtb = findViewById(R.id.sendMsgTCPBtn);
-        Button connectBtn = findViewById(R.id.connectTCPBtn);
-        Button disconnectBtn = findViewById(R.id.disconnectTCPBtn);
+    private String ipAddr = "192.168.43.154";
+    private int port = 3333;
+
+    private void debugWiFiTCPConnection() {
+        Button startBtn = findViewById(R.id.startTCPThreadBtnDbg);
+        Button recvMsgBtb = findViewById(R.id.recvMsgTCPBtnDbg);
+        Button sendMsgBtb = findViewById(R.id.sendMsgTCPBtnDbg);
+        Button connectBtn = findViewById(R.id.connectTCPBtnDbg);
+        Button disconnectBtn = findViewById(R.id.disconnectTCPBtnDbg);
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                message = new ConnectionCtx();
-                AsyncTask aa = new WifiTCPSocket().execute(message);
+            TCPContext = new ConnectionCtx();
+            AsyncTask aa = new WifiTCPSocket().execute(TCPContext);
             }
         });
 
         connectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","connect Button is clicked");
-                String ipAddr = "192.168.43.154";
-                int port = 3333;
-                message.setIpAddress(ipAddr);
-                message.setPortNumber(port);
-                message.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
+            Log.d("DEBUG","connect Button is clicked");
+            TCPContext.setIpAddress(ipAddr);
+            TCPContext.setPortNumber(port);
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });
 
         disconnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                message.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION, null);
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION, null);
             }
         });
 
@@ -55,7 +57,7 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("DEBUG","send Msg Button is clicked");
-                message.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
+                TCPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
             }
         });
 
@@ -63,7 +65,56 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("DEBUG","recv Msg Button is clicked");
-                message.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
+                TCPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
+            }
+        });
+    }
+
+    private void debugWiFiUDPConnection() {
+        Button startBtn = findViewById(R.id.startUDPThreadBtnDbg);
+        Button recvMsgBtb = findViewById(R.id.recvMsgUDPBtnDbg);
+        Button sendMsgBtb = findViewById(R.id.sendMsgUDPBtnDbg);
+        Button connectBtn = findViewById(R.id.connectUDPBtnDbg);
+        Button disconnectBtn = findViewById(R.id.disconnectUDPBtnDbg);
+
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            UDPContext = new ConnectionCtx();
+            AsyncTask aa = new WifiUDPSocket().execute(UDPContext);
+            }
+        });
+
+        connectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Log.d("DEBUG","connect Button is clicked");
+            UDPContext.setIpAddress(ipAddr);
+            UDPContext.setPortNumber(port);
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
+            }
+        });
+
+        disconnectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION, null);
+            }
+        });
+
+        sendMsgBtb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DEBUG","send Msg Button is clicked");
+                UDPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
+            }
+        });
+
+        recvMsgBtb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DEBUG","recv Msg Button is clicked");
+                UDPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
             }
         });
     }
@@ -72,10 +123,11 @@ public class DebugActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debug);
-        configureWindowResources();
+        debugWiFiTCPConnection();
+        debugWiFiUDPConnection();
 
 //        checkGyroscopeWorking();
-        checkWiFiWotking();
+//        checkWiFiWotking();
     }
 
     private void checkGyroscopeWorking() {

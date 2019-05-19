@@ -7,7 +7,7 @@
     <string name="recvtcpmessage">RecvTCPMessage</string>
     <string name="sendtcpmessage">SendTCPMessage</string>
     <string name="connecttcpbutton">ConnectTCPButton</string>
-    <string name="startbtn">startBtn</string>
+    <string name="start_tcp_thread">Start TCP Thread</string>
     <string name="disconnecttcpbtn">disconnectTCPBtn</string>
     <string name="debug_wifi_tcp">Debug WiFi TCP</string>
     <string name="debug_wifi_udp">Debug WiFi UDP</string>

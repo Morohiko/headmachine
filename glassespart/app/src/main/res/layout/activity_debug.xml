@@ -7,123 +7,123 @@
     tools:context=".DebugActivity">
 
     <Button
-        android:id="@+id/recvMsgTCPBtn"
-        android:layout_width="142dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:id="@+id/recvMsgTCPBtnDbg"
+        android:layout_width="138dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="20dp"
         android:text="@string/recvtcpmessage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendMsgTCPBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/sendMsgTCPBtnDbg" />
 
     <Button
-        android:id="@+id/sendMsgTCPBtn"
-        android:layout_width="140dp"
-        android:layout_height="55dp"
+        android:id="@+id/sendMsgTCPBtnDbg"
+        android:layout_width="138dp"
+        android:layout_height="62dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
         android:text="@string/sendtcpmessage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/disconnectTCPBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/disconnectTCPBtnDbg" />
 
     <Button
-        android:id="@+id/connectTCPBtn"
-        android:layout_width="144dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/connectTCPBtnDbg"
+        android:layout_width="136dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="20dp"
         android:text="@string/connecttcpbutton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/startTCPThreadBtnDbg" />
 
     <Button
-        android:id="@+id/startBtn"
-        android:layout_width="188dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/startbtn"
+        android:id="@+id/startTCPThreadBtnDbg"
+        android:layout_width="135dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/start_tcp_thread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifiTCPTextDbg" />
+
+    <Button
+        android:id="@+id/disconnectTCPBtnDbg"
+        android:layout_width="138dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/disconnecttcpbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connectTCPBtnDbg" />
+
+    <TextView
+        android:id="@+id/wifiTCPTextDbg"
+        android:layout_width="132dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="72dp"
+        android:text="@string/debug_wifi_tcp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/disconnectTCPBtn"
-        android:layout_width="139dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/disconnecttcpbtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connectTCPBtn" />
-
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="139dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/debug_wifi_tcp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startBtn" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="135dp"
+        android:id="@+id/wifiUDPTextDbg"
+        android:layout_width="121dp"
         android:layout_height="36dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="52dp"
         android:text="@string/debug_wifi_udp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/createUDPBtn"
-        android:layout_width="140dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:id="@+id/connectUDPBtnDbg"
+        android:layout_width="124dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="44dp"
         android:text="@string/connectudpbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/startUDPThreadBtnDbg" />
 
     <Button
-        android:id="@+id/disconnectUDPBtn"
-        android:layout_width="136dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="28dp"
+        android:id="@+id/disconnectUDPBtnDbg"
+        android:layout_width="123dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="44dp"
         android:text="@string/disconnectudpbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createUDPBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/connectUDPBtnDbg" />
 
     <Button
-        android:id="@+id/sendUDPBtn"
-        android:layout_width="139dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="28dp"
+        android:id="@+id/sendMsgUDPBtnDbg"
+        android:layout_width="123dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="44dp"
         android:text="@string/sendudpmsg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/disconnectUDPBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/disconnectUDPBtnDbg" />
 
     <Button
-        android:id="@+id/recvUDPBtn"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="24dp"
+        android:id="@+id/recvMsgUDPBtnDbg"
+        android:layout_width="122dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="44dp"
         android:text="@string/recvudpmsg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendUDPBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/sendMsgUDPBtnDbg" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="49dp"
-        android:layout_height="36dp"
+        android:id="@+id/ActivityTextDbg"
+        android:layout_width="96dp"
+        android:layout_height="22dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/activity_deubg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/startUDPThreadBtnDbg"
+        android:layout_width="121dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="52dp"
+        android:text="Start UDP Thread"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifiUDPTextDbg" />
 
 </android.support.constraint.ConstraintLayout>
