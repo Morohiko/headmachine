@@ -6,54 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/recvMsgBtn"
-        android:layout_width="194dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="140dp"
-        android:text="RecvMessage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/disconnectBtn" />
 
     <Button
-        android:id="@+id/sendMsgBtn"
-        android:layout_width="194dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="60dp"
-        android:text="SendMessage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/disconnectBtn" />
-
-    <Button
-        android:id="@+id/connectBtn"
-        android:layout_width="185dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="48dp"
-        android:text="ConnectButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startBtn" />
-
-    <Button
-        android:id="@+id/startBtn"
-        android:layout_width="184dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="48dp"
-        android:text="startBtn"
+        android:id="@+id/toDebugBtn"
+        android:layout_width="192dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="72dp"
+        android:text="ToDebug"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/disconnectBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="68dp"
-        android:text="disconnectBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connectBtn" />
-
 </android.support.constraint.ConstraintLayout>

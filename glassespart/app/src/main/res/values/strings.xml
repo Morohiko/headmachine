@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">glassespart</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_debug">DebugActivity</string>
+    <string name="activity_deubg">Activity Deubg</string>
+    <string name="recvudpmsg">RecvUDPMsg</string>
+    <string name="recvtcpmessage">RecvTCPMessage</string>
+    <string name="sendtcpmessage">SendTCPMessage</string>
+    <string name="connecttcpbutton">ConnectTCPButton</string>
+    <string name="startbtn">startBtn</string>
+    <string name="disconnecttcpbtn">disconnectTCPBtn</string>
+    <string name="debug_wifi_tcp">Debug WiFi TCP</string>
+    <string name="debug_wifi_udp">Debug WiFi UDP</string>
+    <string name="connectudpbutton">ConnectUDPButton</string>
+    <string name="disconnectudpbtn">DisconnectUDPBtn</string>
+    <string name="sendudpmsg">SendUDPMsg</string>
 </resources>
