@@ -18,8 +18,10 @@ public class DebugActivity extends AppCompatActivity {
     private ConnectionCtx TCPContext;
     private ConnectionCtx UDPContext;
 
-    private String ipAddr = "192.168.43.154";
-    private int port = 3333;
+    private String targetIpAddr = "192.168.43.154";
+    private int targetPort = 3333;
+
+    private int localPort = 3334;
 
     private void debugWiFiTCPConnection() {
         Button startBtn = findViewById(R.id.startTCPThreadBtnDbg);
@@ -40,8 +42,8 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","connect Button is clicked");
-            TCPContext.setIpAddress(ipAddr);
-            TCPContext.setPortNumber(port);
+            TCPContext.setTargetIpAddress(targetIpAddr);
+            TCPContext.setTargetPort(targetPort);
             TCPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });
@@ -89,8 +91,9 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","connect Button is clicked");
-            UDPContext.setIpAddress(ipAddr);
-            UDPContext.setPortNumber(port);
+            UDPContext.setTargetIpAddress(targetIpAddr);
+            UDPContext.setTargetPort(targetPort);
+            UDPContext.setLocatPort(localPort);
             UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });

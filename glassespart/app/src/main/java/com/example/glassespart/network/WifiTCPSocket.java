@@ -47,7 +47,6 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
         Log.d("DEBUG", "Socket closed");
     }
 
-
     private void receiveMessage() {
         try {
             Log.d("DEBUG","started recv message");
@@ -105,7 +104,7 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
 
             switch (msgCtx.operation) {
                 case CREATE_CONNECTION:
-                    createConnection(parameter[0].getIpAddress(), parameter[0].getPortNumber());
+                    createConnection(parameter[0].getTargetIpAddress(), parameter[0].getTargetPort());
                     break;
                 case CLOSE_CONNECTION:
                     closeConnection();

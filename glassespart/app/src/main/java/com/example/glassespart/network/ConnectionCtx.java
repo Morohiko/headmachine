@@ -3,36 +3,47 @@ package com.example.glassespart.network;
 import java.util.LinkedList;
 
 public class ConnectionCtx {
-    public ConnectionCtx(){
+    public ConnectionCtx() {}
 
-    }
-    public ConnectionCtx(String ipAddress, int portNumber) {
-        this.ipAddress = ipAddress;
-        this.portNumber = portNumber;
-    }
-
-    private String ipAddress;
-    private int portNumber;
-
-
-    public int getPortNumber() {
-        return portNumber;
-    }
-
-    public void setPortNumber(int portNumber) {
-        this.portNumber = portNumber;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
+    private String localIpAddress;
+    private int locatPort;
+    private String targetIpAddress;
+    private int targetPort;
 
 
     private LinkedList<MessageCtx> messages = new LinkedList<>();
+
+    int getTargetPort() {
+        return targetPort;
+    }
+
+    public void setTargetPort(int targetPort) {
+        this.targetPort = targetPort;
+    }
+
+    String getTargetIpAddress() {
+        return targetIpAddress;
+    }
+
+    public void setTargetIpAddress(String targetIpAddress) {
+        this.targetIpAddress = targetIpAddress;
+    }
+
+    int getLocatPort() {
+        return locatPort;
+    }
+
+    public void setLocatPort(int locatPort) {
+        this.locatPort = locatPort;
+    }
+
+    public String getLocalIpAddress() {
+        return localIpAddress;
+    }
+
+    public void setLocalIpAddress(String localIpAddress) {
+        this.localIpAddress = localIpAddress;
+    }
 
     public enum operations{
         CREATE_CONNECTION,
@@ -45,7 +56,7 @@ public class ConnectionCtx {
         messages.addFirst(new MessageCtx(op, messageCtx));
     }
 
-    public MessageCtx pullMessageCtx() {
+    MessageCtx pullMessageCtx() {
         if (messages.size() < 1) {
             return null;
         }
