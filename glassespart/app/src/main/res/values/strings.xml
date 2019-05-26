@@ -14,4 +14,5 @@
     <string name="connectudpbutton">ConnectUDPButton</string>
     <string name="disconnectudpbtn">DisconnectUDPBtn</string>
     <string name="sendudpmsg">SendUDPMsg</string>
+    <string name="title_activity_config">ConfigActivity</string>
 </resources>

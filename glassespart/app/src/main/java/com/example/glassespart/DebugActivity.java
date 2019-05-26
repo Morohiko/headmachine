@@ -14,14 +14,11 @@ import com.example.glassespart.network.WiFi;
 import com.example.glassespart.network.WifiTCPSocket;
 import com.example.glassespart.network.WifiUDPSocket;
 
+import com.example.glassespart.config.NetworkConfig;
+
 public class DebugActivity extends AppCompatActivity {
     private ConnectionCtx TCPContext;
     private ConnectionCtx UDPContext;
-
-    private String targetIpAddr = "192.168.43.154";
-    private int targetPort = 3333;
-
-    private int localPort = 3334;
 
     private void debugWiFiTCPConnection() {
         Button startBtn = findViewById(R.id.startTCPThreadBtnDbg);
@@ -42,8 +39,8 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","connect Button is clicked");
-            TCPContext.setTargetIpAddress(targetIpAddr);
-            TCPContext.setTargetPort(targetPort);
+            TCPContext.setTargetIpAddress(NetworkConfig.TARGETIPADDRESS);
+            TCPContext.setTargetPort(NetworkConfig.TARGETPORT);
             TCPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });
@@ -91,9 +88,9 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","connect Button is clicked");
-            UDPContext.setTargetIpAddress(targetIpAddr);
-            UDPContext.setTargetPort(targetPort);
-            UDPContext.setLocatPort(localPort);
+            UDPContext.setTargetIpAddress(NetworkConfig.TARGETIPADDRESS);
+            UDPContext.setTargetPort(NetworkConfig.TARGETPORT);
+            UDPContext.setLocatPort(NetworkConfig.LOCALPORT);
             UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });
