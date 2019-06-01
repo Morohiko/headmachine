@@ -1,27 +1,31 @@
-package com.example.glassespart;
+package com.example.glassespart.gyroscope;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 
-class Gyroscope extends Activity {
+@SuppressLint("Registered")
+public class GyroscopeInternal extends Activity {
+
     private SensorManager sensorManager;
     private Sensor sensorGyroscope;
 
     private SensorEventListener listenerGyroscope;
 
-    private float changeX = 0;
-    private float changeY = 0;
-    private float changeZ = 0;
+    private int changeX = 0;
+    private int changeY = 0;
+    private int changeZ = 0;
 
     private int X = 0;
     private int Y = 1;
     private int Z = 2;
 
-    Gyroscope(Activity activity) {
+    GyroscopeInternal(Activity activity) {
         sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         sensorGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
@@ -32,14 +36,13 @@ class Gyroscope extends Activity {
 
             @Override
             public void onSensorChanged(SensorEvent event) {
-                System.out.println("onSensorChanged");
-                changeX = event.values[X];
-                changeY = event.values[Y];
-                changeZ = event.values[Z];
+//                Log.d("DEBUG", "onSensorChanged");
+                changeX = (int) (event.values[X] * 100);
+                changeY = (int) (event.values[Y] * 100);
+                changeZ = (int) (event.values[Z] * 100);
 
-                System.out.println("Gyroscope: \n" +
-                        "X = " + changeX + ", Y = " + changeY + ", Z = " + changeZ);
-
+//                Log.d("DEBUG", "Gyroscope: " +
+//                        "X = " + changeX + ", Y = " + changeY + ", Z = " + changeZ);
             }
         };
     }
@@ -56,15 +59,10 @@ class Gyroscope extends Activity {
         changeZ = 0;
     }
 
-    float getChangeX() {
-        return changeX;
-    }
-
-    float getChangeY() {
-        return changeY;
-    }
-
-    float getChangeZ() {
-        return changeZ;
+    String getData(){
+        return Integer.toString(changeX) + ':' +
+                Integer.toString(changeY) + ':' +
+                Integer.toString(changeZ) + '\n';
     }
 }
+

@@ -1,5 +1,6 @@
 package com.example.glassespart;
 
+import android.annotation.SuppressLint;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -8,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.glassespart.gyroscope.Gyroscope;
 import com.example.glassespart.network.ConnectionCtx;
 import com.example.glassespart.network.WiFi;
 import com.example.glassespart.network.WifiTCPSocket;
@@ -19,6 +22,7 @@ import com.example.glassespart.config.NetworkConfig;
 public class DebugActivity extends AppCompatActivity {
     private ConnectionCtx TCPContext;
     private ConnectionCtx UDPContext;
+    private Gyroscope gyroscope;
 
     private void debugWiFiTCPConnection() {
         Button startBtn = findViewById(R.id.startTCPThreadBtnDbg);
@@ -105,18 +109,36 @@ public class DebugActivity extends AppCompatActivity {
         sendMsgBtb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","send Msg Button is clicked");
-                UDPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
+             Log.d("DEBUG","send Msg Button is clicked");
+             UDPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
             }
         });
 
         recvMsgBtb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","recv Msg Button is clicked");
-                UDPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
+            Log.d("DEBUG","recv Msg Button is clicked");
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
             }
         });
+    }
+
+    private TextView debugGyroscopeText;
+    @SuppressLint("SetTextI18n")
+    private void debugGyroscope() {
+        Button debugGyroscopeBtn = findViewById(R.id.debugRunGyroscopeBtn);
+        debugGyroscopeText = findViewById(R.id.debugGyroscopeText);
+
+        gyroscope = new Gyroscope(this);
+
+        debugGyroscopeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gyroscope.startGyroscopeOverUDP();
+            }
+        });
+
+
     }
 
     @Override
@@ -126,14 +148,11 @@ public class DebugActivity extends AppCompatActivity {
         debugWiFiTCPConnection();
         debugWiFiUDPConnection();
 
-//        checkGyroscopeWorking();
+        debugGyroscope();
 //        checkWiFiWotking();
     }
 
-    private void checkGyroscopeWorking() {
-        Gyroscope gyroscope = new Gyroscope(this);
-        gyroscope.startGyroscope();
-    }
+
 
     private void checkWiFiWotking() {
         WiFi wiFi = new WiFi();

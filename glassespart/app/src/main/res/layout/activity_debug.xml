@@ -126,4 +126,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifiUDPTextDbg" />
 
+    <Button
+        android:id="@+id/debugRunGyroscopeBtn"
+        android:layout_width="143dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="25dp"
+        android:text="rungyroscope"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recvMsgTCPBtnDbg" />
+
+    <TextView
+        android:id="@+id/debugGyroscopeText"
+        android:layout_width="130dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/debugRunGyroscopeBtn" />
+
 </android.support.constraint.ConstraintLayout>

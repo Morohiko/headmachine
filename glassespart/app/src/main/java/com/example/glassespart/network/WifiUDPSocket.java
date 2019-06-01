@@ -8,7 +8,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class WifiUDPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
-    private int timeThreadSleep = 2000;
+    private int timeThreadSleep = 1;
     private DatagramSocket socket;
 
     private DatagramPacket packetIn;
