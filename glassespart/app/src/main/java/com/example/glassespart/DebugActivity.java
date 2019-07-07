@@ -1,6 +1,7 @@
 package com.example.glassespart;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import com.example.glassespart.network.WifiTCPSocket;
 import com.example.glassespart.network.WifiUDPSocket;
 
 import com.example.glassespart.config.NetworkConfig;
+import com.example.glassespart.opencv.VideoRecorderActivity;
 
 public class DebugActivity extends AppCompatActivity {
     private ConnectionCtx TCPContext;
@@ -59,16 +61,16 @@ public class DebugActivity extends AppCompatActivity {
         sendMsgBtb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","send Msg Button is clicked");
-                TCPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
+            Log.d("DEBUG","send Msg Button is clicked");
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
             }
         });
 
         recvMsgBtb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","recv Msg Button is clicked");
-                TCPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
+            Log.d("DEBUG","recv Msg Button is clicked");
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
             }
         });
     }
@@ -137,28 +139,34 @@ public class DebugActivity extends AppCompatActivity {
                 gyroscope.startGyroscopeOverUDP();
             }
         });
+    }
 
-
+    private void debugVideoRecorder() {
+        Button videoRecorderBtn = findViewById(R.id.videoRecorder);
+        videoRecorderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DebugActivity.this, VideoRecorderActivity.class));
+            }
+        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debug);
-        debugWiFiTCPConnection();
-        debugWiFiUDPConnection();
+//        debugWiFiTCPConnection();
+//        debugWiFiUDPConnection();
 
-        debugGyroscope();
+//        debugGyroscope();
 //        checkWiFiWotking();
+        debugVideoRecorder();
     }
-
-
 
     private void checkWiFiWotking() {
         WiFi wiFi = new WiFi();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(wiFi, intentFilter);
-
     }
 }

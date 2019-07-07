@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         toDebugBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DebugActivity.class));
+            startActivity(new Intent(MainActivity.this, DebugActivity.class));
             }
         });
 
         toConfigBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ConfigActivity.class));
+            startActivity(new Intent(MainActivity.this, ConfigActivity.class));
             }
         });
     }
