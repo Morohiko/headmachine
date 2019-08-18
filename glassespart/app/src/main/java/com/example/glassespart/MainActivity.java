@@ -14,11 +14,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button toDebugBtn = findViewById(R.id.toDebugBtn);
         Button toConfigBtn = findViewById(R.id.toConfigBtn);
+        Button toReleaseBtn = findViewById(R.id.toReleaseBtn);
 
         toDebugBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             startActivity(new Intent(MainActivity.this, DebugActivity.class));
+            }
+        });
+
+        toReleaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            startActivity(new Intent(MainActivity.this, ReleaseActivity.class));
             }
         });
 

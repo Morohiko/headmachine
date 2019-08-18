@@ -111,8 +111,8 @@ public class DebugActivity extends AppCompatActivity {
         sendMsgBtb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             Log.d("DEBUG","send Msg Button is clicked");
-             UDPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
+            Log.d("DEBUG","send Msg Button is clicked");
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, "some msg");
             }
         });
 
@@ -136,7 +136,7 @@ public class DebugActivity extends AppCompatActivity {
         debugGyroscopeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gyroscope.startGyroscopeOverUDP();
+            gyroscope.startGyroscopeOverUDP();
             }
         });
     }
@@ -146,7 +146,7 @@ public class DebugActivity extends AppCompatActivity {
         videoRecorderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DebugActivity.this, VideoRecorderActivity.class));
+            startActivity(new Intent(DebugActivity.this, VideoRecorderActivity.class));
             }
         });
     }

@@ -26,4 +26,14 @@
         android:text="@string/title_activity_config"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/toReleaseBtn"
+        android:layout_width="165dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="132dp"
+        android:text="torelease"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toDebugBtn" />
 </android.support.constraint.ConstraintLayout>

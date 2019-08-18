@@ -13,6 +13,7 @@ import com.example.glassespart.network.WifiUDPSocket;
 public class Gyroscope {
     private Activity activity;
     private GyroscopeInternal gyroscopeInternal;
+    private AsyncTask gyroscopeOverUDPTask;
 
 
     @SuppressLint("Assert")
@@ -26,8 +27,13 @@ public class Gyroscope {
 
         gyroscopeInternal.startGyroscope();
 
-        GyroscopeUDPThread gyroscopeUDPThread = new GyroscopeUDPThread();
-        AsyncTask at = new GyroscopeUDPThread().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, gyroscopeInternal);
+        // GyroscopeUDPThread gyroscopeUDPThread = new GyroscopeUDPThread();
+        gyroscopeOverUDPTask = new GyroscopeUDPThread().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, gyroscopeInternal);
+    }
+
+    public void stopGyroscopeOverUDP() {
+        gyroscopeOverUDPTask.cancel(true);
+        gyroscopeInternal.stopGyroscope();
     }
 }
 
@@ -54,11 +60,22 @@ class GyroscopeUDPThread extends AsyncTask<GyroscopeInternal, Void, Integer> {
 
         SystemClock.sleep(500);
         while (true) {
+            SystemClock.sleep(1000);
+            if (isCancelled()) {
+                break;
+            }
+
             if (UDPContext == null) return -1;
             String sendedText = gyroscopeInternal[0].getData();
             Log.d("DEBUG", "Sended text: " + sendedText);
             UDPContext.pushMessageCtx(ConnectionCtx.operations.SEND_MESSAGE, sendedText);
         }
+        return 0;
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
     }
 }
 

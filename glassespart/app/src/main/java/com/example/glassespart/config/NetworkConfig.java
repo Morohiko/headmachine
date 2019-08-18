@@ -2,10 +2,11 @@ package com.example.glassespart.config;
 
 public class NetworkConfig {
 // DEFAULT CONFIG
-    private static String DEFAULTLOCALIPADDRESS = "192.168.43.109";
+    //private static String DEFAULTLOCALIPADDRESS = "192.168.43.183";
+    private static String DEFAULTLOCALIPADDRESS = "0.0.0.0";
     private static int DEFAULTLOCALPORT = 3334;
 
-    private static String DEFAULTTARGETIPADDRESS = "192.168.43.154";
+    private static String DEFAULTTARGETIPADDRESS = "192.168.43.177";
     private static int DEFAULTTARGETPORT = 3333;
 
 // CURRENT CONFIG
