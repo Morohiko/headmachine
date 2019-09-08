@@ -2,37 +2,44 @@ package com.example.glassespart;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.glassespart.config.NetworkConfig;
 
-import org.w3c.dom.Text;
-
 public class ConfigActivity extends AppCompatActivity {
-    private TextView localIp;
-    private TextView localPort;
-    private TextView targetIp;
-    private TextView targetPort;
+    private TextView ipLocalAddressView;
+    private TextView ipTargetAddressView;
+    private TextView gyroscopeLocalPortView;
+    private TextView gyroscopeTargetPortView;
+    private TextView cameraLocalPortView;
+    private TextView cameraTargetPortView;
+    private TextView testLocalPortView;
+    private TextView testTargetPortView;
 
     @SuppressLint("SetTextI18n")
     private void showConfig(){
-        localIp.setText(NetworkConfig.LOCALIPADDRESS);
-        localPort.setText(Integer.toString(NetworkConfig.LOCALPORT));
-        targetIp.setText(NetworkConfig.TARGETIPADDRESS);
-        targetPort.setText(Integer.toString(NetworkConfig.TARGETPORT));
+        ipLocalAddressView.setText(NetworkConfig.IP_LOCAL_ADDRESS);
+        ipTargetAddressView.setText(NetworkConfig.IP_TARGET_ADDRESS);
+        gyroscopeLocalPortView.setText(Integer.toString(NetworkConfig.GYROSCOPE_LOCAL_PORT));
+        gyroscopeTargetPortView.setText(Integer.toString(NetworkConfig.GYROSCOPE_TARGET_PORT));
+        cameraLocalPortView.setText(Integer.toString(NetworkConfig.CAMERA_LOCAL_PORT));
+        cameraTargetPortView.setText(Integer.toString(NetworkConfig.CAMERA_TARGET_PORT));
+        testLocalPortView.setText(Integer.toString(NetworkConfig.TEST_LOCAL_PORT));
+        testTargetPortView.setText(Integer.toString(NetworkConfig.TEST_TARGET_PORT));
     }
 
     private void initResources(){
-        localIp = findViewById(R.id.configLocalIPText);
-        localPort = findViewById(R.id.configLocalPortText);
-        targetIp = findViewById(R.id.configTargetIPText);
-        targetPort = findViewById(R.id.configTargetPortText);
+        ipLocalAddressView = findViewById(R.id.configLocalIPText);
+        ipTargetAddressView = findViewById(R.id.configTargetIPText);
+        gyroscopeLocalPortView = findViewById(R.id.configGyroscopeLocalPortText);
+        gyroscopeTargetPortView = findViewById(R.id.configGyroscopeTargetPortText);
+        cameraLocalPortView = findViewById(R.id.configCameraLocalPortText);
+        cameraTargetPortView = findViewById(R.id.configCameraTargetPortText);
+        testLocalPortView = findViewById(R.id.configTestLocalPortText);
+        testTargetPortView = findViewById(R.id.configTestTargetPortText);
     }
 
     @Override
@@ -49,11 +56,15 @@ public class ConfigActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkConfig.LOCALIPADDRESS = localIp.getText().toString();
-                NetworkConfig.LOCALPORT = Integer.parseInt(localPort.getText().toString());
-                NetworkConfig.TARGETIPADDRESS = targetIp.getText().toString();
-                NetworkConfig.TARGETPORT = Integer.parseInt(targetPort.getText().toString());
-
+                NetworkConfig.IP_LOCAL_ADDRESS = ipLocalAddressView.getText().toString();
+                NetworkConfig.IP_TARGET_ADDRESS = ipTargetAddressView.getText().toString();
+                
+                NetworkConfig.GYROSCOPE_LOCAL_PORT = Integer.parseInt(gyroscopeLocalPortView.getText().toString());
+                NetworkConfig.GYROSCOPE_TARGET_PORT = Integer.parseInt(gyroscopeTargetPortView.getText().toString());
+                NetworkConfig.CAMERA_LOCAL_PORT = Integer.parseInt(cameraLocalPortView.getText().toString());
+                NetworkConfig.CAMERA_TARGET_PORT = Integer.parseInt(cameraTargetPortView.getText().toString());
+                NetworkConfig.TEST_LOCAL_PORT = Integer.parseInt(testLocalPortView.getText().toString());
+                NetworkConfig.TEST_TARGET_PORT = Integer.parseInt(testTargetPortView.getText().toString());
                 showConfig();
             }
         });

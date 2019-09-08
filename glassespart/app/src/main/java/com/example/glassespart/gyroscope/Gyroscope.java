@@ -47,9 +47,9 @@ class GyroscopeUDPThread extends AsyncTask<GyroscopeInternal, Void, Integer> {
 
         AsyncTask aa = new WifiUDPSocket().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, UDPContext);
 
-        UDPContext.setTargetIpAddress(NetworkConfig.TARGETIPADDRESS);
-        UDPContext.setTargetPort(NetworkConfig.TARGETPORT);
-        UDPContext.setLocatPort(NetworkConfig.LOCALPORT);
+        UDPContext.setTargetIpAddress(NetworkConfig.IP_TARGET_ADDRESS);
+        UDPContext.setTargetPort(NetworkConfig.GYROSCOPE_TARGET_PORT);
+        UDPContext.setLocatPort(NetworkConfig.GYROSCOPE_LOCAL_PORT);
 
         UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
     }

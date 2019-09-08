@@ -45,8 +45,8 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","connect Button is clicked");
-            TCPContext.setTargetIpAddress(NetworkConfig.TARGETIPADDRESS);
-            TCPContext.setTargetPort(NetworkConfig.TARGETPORT);
+            TCPContext.setTargetIpAddress(NetworkConfig.IP_TARGET_ADDRESS);
+            TCPContext.setTargetPort(NetworkConfig.TEST_TARGET_PORT);
             TCPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });
@@ -94,9 +94,9 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","connect Button is clicked");
-            UDPContext.setTargetIpAddress(NetworkConfig.TARGETIPADDRESS);
-            UDPContext.setTargetPort(NetworkConfig.TARGETPORT);
-            UDPContext.setLocatPort(NetworkConfig.LOCALPORT);
+            UDPContext.setTargetIpAddress(NetworkConfig.IP_TARGET_ADDRESS);
+            UDPContext.setTargetPort(NetworkConfig.TEST_TARGET_PORT);
+            UDPContext.setLocatPort(NetworkConfig.TEST_LOCAL_PORT);
             UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
             }
         });
