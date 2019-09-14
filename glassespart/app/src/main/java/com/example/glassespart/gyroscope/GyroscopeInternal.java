@@ -17,9 +17,9 @@ public class GyroscopeInternal extends Activity {
 
     private SensorEventListener listenerGyroscope;
 
-    private int changeX = 0;
-    private int changeY = 0;
-    private int changeZ = 0;
+    private int currentX = 0;
+    private int currentY = 0;
+    private int currentZ = 0;
 
     private int X = 0;
     private int Y = 1;
@@ -37,12 +37,12 @@ public class GyroscopeInternal extends Activity {
             @Override
             public void onSensorChanged(SensorEvent event) {
 //                Log.d("DEBUG", "onSensorChanged");
-                changeX = (int) (event.values[X] * 100);
-                changeY = (int) (event.values[Y] * 100);
-                changeZ = (int) (event.values[Z] * 100);
+                currentX += (int) (event.values[X] * 100);
+                currentY += (int) (event.values[Y] * 100);
+                currentZ += (int) (event.values[Z] * 100);
 
-//                Log.d("DEBUG", "Gyroscope: " +
-//                        "X = " + changeX + ", Y = " + changeY + ", Z = " + changeZ);
+//                Log.d("DEBUG", "Gyroscope current: " +
+//                        "X = " + currentX + ", Y = " + currentY + ", Z = " + currentZ);
             }
         };
     }
@@ -54,15 +54,15 @@ public class GyroscopeInternal extends Activity {
 
     void stopGyroscope() {
         sensorManager.unregisterListener(listenerGyroscope, sensorGyroscope);
-        changeX = 0;
-        changeY = 0;
-        changeZ = 0;
+        currentX = 0;
+        currentY = 0;
+        currentZ = 0;
     }
 
     String getData(){
-        return Integer.toString(changeX) + ':' +
-                Integer.toString(changeY) + ':' +
-                Integer.toString(changeZ) + '\n';
+        return Integer.toString(currentX) + ':' +
+                Integer.toString(currentY) + ':' +
+                Integer.toString(currentZ) + '\n';
     }
 }
 
