@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
+public class WifiTCPSocket {
     private Socket socket = null;
     private int timeThreadSleep = 2000;
 
@@ -17,7 +17,9 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
 
     private void createConnection(String ipAddress, int portNumber) {
         try {
+            Log.d("DEBUG", "before create socked ip = " + ipAddress + " port = " + portNumber);
             socket = new Socket(ipAddress, portNumber);
+            Log.d("DEBUG", "after create socked");
             Log.d("DEBUG", "Socket created with ip: " + ipAddress + ", port: " + portNumber);
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,14 +50,18 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
     }
 
     private void receiveMessage() {
-        try {
-            Log.d("DEBUG","started recv message");
+        if (!socket.isConnected()) {
+            Log.d("ERROR", "tcp socket is null, cannot establish connection, return");
+            return;
+        }
+        Log.d("DEBUG","started recv message");
 
+        try {
             if (recvStream == null) {
                 recvStream = new DataInputStream(socket.getInputStream());
             }
 
-            int buffSize = 8;
+            int buffSize = 614400;
             int size = 0;
 
             while (size >= 0) {
@@ -72,8 +78,13 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
     }
 
     private void sendMessage(String message) {
+        if (!socket.isConnected()) {
+            Log.d("ERROR", "tcp socket is null, cannot establish connection, return");
+            return;
+        }
         try {
             Log.d("DEBUG","started send message");
+
             if (sendStream == null) {
                 sendStream = new OutputStreamWriter(socket.getOutputStream());
             }
@@ -84,16 +95,16 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
         }
     }
 
-    @Override
-    protected Integer doInBackground(ConnectionCtx[] parameter) {
+    public Integer doInBackground(ConnectionCtx parameter) {
         while (true) {
+            Log.d("DEBUG", "wifi tcp socket");
             try {
                 Thread.sleep(timeThreadSleep);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            MessageCtx msgCtx = parameter[0].pullMessageCtx();
+            MessageCtx msgCtx = parameter.pullMessageCtx();
 
             if (msgCtx == null) {
 //                Log.d("DEBUG: ", "parameter[0].pullMessageCtx(op, msg) == -1");
@@ -104,7 +115,7 @@ public class WifiTCPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
 
             switch (msgCtx.operation) {
                 case CREATE_CONNECTION:
-                    createConnection(parameter[0].getTargetIpAddress(), parameter[0].getTargetPort());
+                    createConnection(parameter.getTargetIpAddress(), parameter.getTargetPort());
                     break;
                 case CLOSE_CONNECTION:
                     closeConnection();

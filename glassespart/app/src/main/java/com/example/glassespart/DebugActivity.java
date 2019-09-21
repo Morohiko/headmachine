@@ -19,6 +19,7 @@ import com.example.glassespart.network.WifiTCPSocket;
 import com.example.glassespart.network.WifiUDPSocket;
 
 import com.example.glassespart.config.NetworkConfig;
+import com.example.glassespart.opencv.VideoReceiver;
 import com.example.glassespart.opencv.VideoRecorderActivity;
 
 public class DebugActivity extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             TCPContext = new ConnectionCtx();
-            AsyncTask aa = new WifiTCPSocket().execute(TCPContext);
+//            AsyncTask aa = new WifiTCPSocket().execute(TCPContext);
             }
         });
 
@@ -146,10 +147,22 @@ public class DebugActivity extends AppCompatActivity {
         videoRecorderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            startActivity(new Intent(DebugActivity.this, VideoRecorderActivity.class));
+                startActivity(new Intent(DebugActivity.this, VideoRecorderActivity.class));
             }
         });
     }
+
+    private void debugVideoReceiver() {
+        Button videoReceiverBtn = findViewById(R.id.debugVideoReceiverBtn);
+        videoReceiverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask aa = new VideoReceiver().execute();
+            }
+        });
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +173,8 @@ public class DebugActivity extends AppCompatActivity {
 
 //        debugGyroscope();
 //        checkWiFiWotking();
-        debugVideoRecorder();
+//        debugVideoRecorder();
+        debugVideoReceiver();
     }
 
     private void checkWiFiWotking() {

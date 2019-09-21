@@ -4,7 +4,7 @@ public class NetworkConfig {
 // DEFAULT CONFIG
     //private static String DEFAULT_IP_LOCAL_ADDRESS = "192.168.43.183";
     private static String DEFAULT_IP_LOCAL_ADDRESS = "0.0.0.0";
-    private static String DEFAULT_IP_TARGET_ADDRESS = "192.168.43.177";
+    private static String DEFAULT_IP_TARGET_ADDRESS = "192.168.43.164";
 
     private static int DEFAULT_GYROSCOPE_LOCAL_PORT = 3334;
     private static int DEFAULT_GYROSCOPE_TARGET_PORT = 3333;
