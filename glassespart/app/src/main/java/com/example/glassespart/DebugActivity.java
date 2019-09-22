@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.glassespart.gyroscope.Gyroscope;
@@ -48,14 +49,14 @@ public class DebugActivity extends AppCompatActivity {
             Log.d("DEBUG","connect Button is clicked");
             TCPContext.setTargetIpAddress(NetworkConfig.IP_TARGET_ADDRESS);
             TCPContext.setTargetPort(NetworkConfig.TEST_TARGET_PORT);
-            TCPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION);
             }
         });
 
         disconnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            TCPContext.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION, null);
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION);
             }
         });
 
@@ -71,7 +72,8 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","recv Msg Button is clicked");
-            TCPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
+            byte[] message = new byte[100000];
+            TCPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, message);
             }
         });
     }
@@ -98,14 +100,14 @@ public class DebugActivity extends AppCompatActivity {
             UDPContext.setTargetIpAddress(NetworkConfig.IP_TARGET_ADDRESS);
             UDPContext.setTargetPort(NetworkConfig.TEST_TARGET_PORT);
             UDPContext.setLocatPort(NetworkConfig.TEST_LOCAL_PORT);
-            UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION);
             }
         });
 
         disconnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            UDPContext.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION, null);
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.CLOSE_CONNECTION);
             }
         });
 
@@ -121,7 +123,8 @@ public class DebugActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             Log.d("DEBUG","recv Msg Button is clicked");
-            UDPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, null);
+            byte[] message = new byte[100000];
+            UDPContext.pushMessageCtx(ConnectionCtx.operations.RECEIVE_MESSAGE, message);
             }
         });
     }
@@ -173,7 +176,7 @@ public class DebugActivity extends AppCompatActivity {
 
 //        debugGyroscope();
 //        checkWiFiWotking();
-//        debugVideoRecorder();
+        debugVideoRecorder();
         debugVideoReceiver();
     }
 

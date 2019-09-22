@@ -1,6 +1,5 @@
 package com.example.glassespart.network;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.DataInputStream;
@@ -49,7 +48,7 @@ public class WifiTCPSocket {
         Log.d("DEBUG", "Socket closed");
     }
 
-    private void receiveMessage() {
+    private void receiveMessage(byte[] message) {
         if (!socket.isConnected()) {
             Log.d("ERROR", "tcp socket is null, cannot establish connection, return");
             return;
@@ -65,10 +64,16 @@ public class WifiTCPSocket {
             int size = 0;
 
             while (size >= 0) {
-                byte[] message = new byte[buffSize];
+//                byte[] message = new byte[buffSize];
                 size = recvStream.read(message, 0, buffSize);
-                String text = new String(message);
-                Log.d("DEBUG", "received message = " + text + ", size = " + size);
+                if (size < 0) {
+                    Log.d("ERROR", "size != buffsize");
+                    break;
+                }
+                Log.d("DEBUG", "received message, size = " + size);
+
+//TODO: move it to video receiver, frame queue not must be public
+//                FramesQueue.getInstance().pushMessageChumk(message);
             }
             recvStream.close();
 
@@ -95,7 +100,7 @@ public class WifiTCPSocket {
         }
     }
 
-    public Integer doInBackground(ConnectionCtx parameter) {
+    public void doInBackground(ConnectionCtx parameter) {
         while (true) {
             Log.d("DEBUG", "wifi tcp socket");
             try {
@@ -124,7 +129,7 @@ public class WifiTCPSocket {
                     sendMessage(msgCtx.message);
                     break;
                 case RECEIVE_MESSAGE:
-                    receiveMessage();
+                    receiveMessage(parameter.pullMessageCtx().messageByte);
                     break;
                 default:
                     Log.d("DEBUG", "dont know operation");

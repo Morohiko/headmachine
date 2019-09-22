@@ -1,10 +1,17 @@
 package com.example.glassespart.opencv;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 
-public class FramesQueue {
+import java.util.Arrays;
+
+class FramesQueue {
     private boolean isBusy = false;
     private Bitmap currentFrame = null;
+    private int FRAME_SIZE = 614400;
+    int MTU_MESSAGE_SIZE = 131072;
+    private byte[] bytesFrame = new byte[MTU_MESSAGE_SIZE];
 
     private FramesQueue(){}
 
@@ -28,6 +35,20 @@ public class FramesQueue {
         return buff;
     }
 
+    Bitmap getBitmapFrameFromBytes(){
+        if (isBusy) {
+            return null;
+        }
+
+        isBusy = true;
+        Bitmap buff = BitmapFactory.decodeByteArray(bytesFrame, 0, bytesFrame.length);
+        if (buff == null) {
+            Log.d("ERROR", "getted bitmap from byte is null");
+        }
+        isBusy = false;
+        return buff;
+    }
+
     int setBitmapFrame(Bitmap fr) {
         if (isBusy) {
             return -1;
@@ -36,5 +57,19 @@ public class FramesQueue {
         currentFrame = fr;
         isBusy = false;
         return 0;
+    }
+
+    void pushMessageChumk(byte[] message) {
+        Log.d("DEBUG", "push message chunk, size = " + message.length);
+
+        if (message.length < 1) {
+            Log.d("DEBUG", "message is empy, return");
+            return;
+        }
+        try {
+            System.arraycopy(message, 0, bytesFrame, 0, MTU_MESSAGE_SIZE);
+        } catch (Exception e) {
+            Log.d("ERROR", Arrays.toString(e.getStackTrace()));
+        }
     }
 }

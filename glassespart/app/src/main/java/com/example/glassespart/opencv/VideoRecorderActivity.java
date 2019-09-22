@@ -11,9 +11,6 @@ import com.example.glassespart.R;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -60,13 +57,6 @@ public class VideoRecorderActivity extends AppCompatActivity {
             if (status == LoaderCallbackInterface.SUCCESS) {
                 Log.i("OpenCV", "OpenCV loaded successfully");
 
-                // TODO: remove wrapper
-                Mat image = Mat.zeros(100, 50, CvType.CV_8UC3);
-                Bitmap bm = Bitmap.createBitmap(image.cols(), image.rows(), Bitmap.Config.ARGB_8888);
-                Utils.matToBitmap(image, bm);
-                FramesQueue.getInstance().setBitmapFrame(bm);
-                //
-
                 updateFrame();
             } else {
                 super.onManagerConnected(status);
@@ -77,7 +67,7 @@ public class VideoRecorderActivity extends AppCompatActivity {
     private void updateFrame() {
         Log.d("DEBUG", "update frame");
         ImageView iv = (ImageView) findViewById(R.id.imageView);
-        Bitmap frame = FramesQueue.getInstance().getBitmapFrame();
+        Bitmap frame = FramesQueue.getInstance().getBitmapFrameFromBytes();
         if (frame == null) {
             Log.d("ERROR", "bitmap frame is null");
             return;

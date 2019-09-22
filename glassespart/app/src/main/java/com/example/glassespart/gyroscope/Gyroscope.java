@@ -51,7 +51,7 @@ class GyroscopeUDPThread extends AsyncTask<GyroscopeInternal, Void, Integer> {
         UDPContext.setTargetPort(NetworkConfig.GYROSCOPE_TARGET_PORT);
         UDPContext.setLocatPort(NetworkConfig.GYROSCOPE_LOCAL_PORT);
 
-        UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION, null);
+        UDPContext.pushMessageCtx(ConnectionCtx.operations.CREATE_CONNECTION);
     }
 
     @Override

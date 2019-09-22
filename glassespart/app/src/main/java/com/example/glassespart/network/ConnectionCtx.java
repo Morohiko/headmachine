@@ -56,6 +56,14 @@ public class ConnectionCtx {
         messages.addFirst(new MessageCtx(op, messageCtx));
     }
 
+    public void pushMessageCtx(operations op, byte[] messageCtx) {
+        messages.addFirst(new MessageCtx(op, messageCtx));
+    }
+
+    public void pushMessageCtx(operations op) {
+        messages.addFirst(new MessageCtx(op));
+    }
+
     MessageCtx pullMessageCtx() {
         if (messages.size() < 1) {
             return null;
@@ -70,11 +78,19 @@ public class ConnectionCtx {
 
 class MessageCtx {
     String message;
+    byte[] messageByte;
     ConnectionCtx.operations operation;
 
     MessageCtx(ConnectionCtx.operations op, String messageCtx) {
         this.message = messageCtx;
         this.operation = op;
     }
+    MessageCtx(ConnectionCtx.operations op, byte[] messageCtx) {
+        this.messageByte = messageCtx;
+        this.operation = op;
+    }
 
+    MessageCtx(ConnectionCtx.operations op) {
+        this.operation = op;
+    }
 }
