@@ -25,8 +25,8 @@ public class ConfigActivity extends AppCompatActivity {
         ipTargetAddressView.setText(NetworkConfig.IP_TARGET_ADDRESS);
         gyroscopeLocalPortView.setText(Integer.toString(NetworkConfig.GYROSCOPE_LOCAL_PORT));
         gyroscopeTargetPortView.setText(Integer.toString(NetworkConfig.GYROSCOPE_TARGET_PORT));
-        cameraLocalPortView.setText(Integer.toString(NetworkConfig.CAMERA_LOCAL_PORT));
-        cameraTargetPortView.setText(Integer.toString(NetworkConfig.CAMERA_TARGET_PORT));
+        cameraLocalPortView.setText(Integer.toString(NetworkConfig.CAMERA_FRAME_LOCAL_PORT));
+        cameraTargetPortView.setText(Integer.toString(NetworkConfig.CAMERA_FRAME_TARGET_PORT));
         testLocalPortView.setText(Integer.toString(NetworkConfig.TEST_LOCAL_PORT));
         testTargetPortView.setText(Integer.toString(NetworkConfig.TEST_TARGET_PORT));
     }
@@ -61,8 +61,8 @@ public class ConfigActivity extends AppCompatActivity {
                 
                 NetworkConfig.GYROSCOPE_LOCAL_PORT = Integer.parseInt(gyroscopeLocalPortView.getText().toString());
                 NetworkConfig.GYROSCOPE_TARGET_PORT = Integer.parseInt(gyroscopeTargetPortView.getText().toString());
-                NetworkConfig.CAMERA_LOCAL_PORT = Integer.parseInt(cameraLocalPortView.getText().toString());
-                NetworkConfig.CAMERA_TARGET_PORT = Integer.parseInt(cameraTargetPortView.getText().toString());
+                NetworkConfig.CAMERA_FRAME_LOCAL_PORT = Integer.parseInt(cameraLocalPortView.getText().toString());
+                NetworkConfig.CAMERA_FRAME_TARGET_PORT = Integer.parseInt(cameraTargetPortView.getText().toString());
                 NetworkConfig.TEST_LOCAL_PORT = Integer.parseInt(testLocalPortView.getText().toString());
                 NetworkConfig.TEST_TARGET_PORT = Integer.parseInt(testTargetPortView.getText().toString());
                 showConfig();
