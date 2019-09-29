@@ -2,6 +2,8 @@ package com.example.glassespart.network;
 
 import android.util.Log;
 
+import com.example.glassespart.config.TotalConfig;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -60,7 +62,7 @@ public class WifiTCPSocket {
                 recvStream = new DataInputStream(socket.getInputStream());
             }
 
-            int buffSize = 614400;
+            int buffSize = TotalConfig.IMAGE_SIZE;
             int size = 0;
 
             while (size >= 0) {

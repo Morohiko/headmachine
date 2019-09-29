@@ -16,7 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class VideoRecorderActivity extends AppCompatActivity {
-    private static final int PERIOD_UPDATE_FRAME = 1000;
+    private static final int PERIOD_UPDATE_FRAME = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

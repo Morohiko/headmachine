@@ -4,17 +4,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.glassespart.config.NetworkConfig;
-import com.example.glassespart.network.ConnectionCtx;
+import com.example.glassespart.config.TotalConfig;
 import com.example.glassespart.network.TCPNetwork;
-import com.example.glassespart.network.WifiTCPSocket;
-
-import java.util.Arrays;
 
 import static java.lang.Thread.sleep;
 
 public class VideoReceiver extends AsyncTask  {
     private boolean isFinish = false;
-    private ConnectionCtx TCPContext;
 
     void setFinish(boolean isFinish) {
         this.isFinish = isFinish;
@@ -37,11 +33,11 @@ public class VideoReceiver extends AsyncTask  {
         TCPNetwork tcpAckSocket = new TCPNetwork();
         tcpAckSocket.createConnection(NetworkConfig.IP_TARGET_ADDRESS, NetworkConfig.CAMERA_ACK_TARGET_PORT);
 
-        byte[] emptyArray = new byte[614400]; // workround caused by memset is not exist in java!!
-        for (int i = 0; i < 614400; i++) {
+        byte[] emptyArray = new byte[TotalConfig.IMAGE_SIZE]; // workround caused by memset is not exist in java!!
+        for (int i = 0; i < TotalConfig.IMAGE_SIZE; i++) {
             emptyArray[i] = '\0';
         }
-        byte[] byteFrame = new byte[614400];
+        byte[] byteFrame = new byte[TotalConfig.IMAGE_SIZE];
 
         try {
             sleep(1000);
@@ -51,7 +47,7 @@ public class VideoReceiver extends AsyncTask  {
 
         while (!isFinish) {
             Log.d("DEBUG", "wait for receive message");
-            System.arraycopy(emptyArray, 0, byteFrame, 0, 614400);
+            System.arraycopy(emptyArray, 0, byteFrame, 0, TotalConfig.IMAGE_SIZE);
             tcpFrameSocket.receiveMessage(byteFrame);
             if (byteFrame[0] == '\0') {
                 Log.d("DEBUG", "not received any messages, continue");

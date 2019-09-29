@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="376dp"
-        android:layout_height="690dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="411dp"
+        android:layout_height="706dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
+        android:rotation="90"
         android:src="@android:drawable/ic_menu_report_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

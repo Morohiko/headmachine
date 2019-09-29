@@ -4,14 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.example.glassespart.config.TotalConfig;
+
 import java.util.Arrays;
 
 class FramesQueue {
     private boolean isBusy = false;
     private Bitmap currentFrame = null;
-    private int FRAME_SIZE = 614400;
-    int MTU_MESSAGE_SIZE = 131072;
-    private byte[] bytesFrame = new byte[MTU_MESSAGE_SIZE];
+//    int MTU_MESSAGE_SIZE = 131072;
+    private byte[] bytesFrame = new byte[TotalConfig.IMAGE_SIZE];
 
     private FramesQueue(){}
 
@@ -67,7 +68,7 @@ class FramesQueue {
             return;
         }
         try {
-            System.arraycopy(message, 0, bytesFrame, 0, MTU_MESSAGE_SIZE);
+            System.arraycopy(message, 0, bytesFrame, 0, TotalConfig.IMAGE_SIZE);
         } catch (Exception e) {
             Log.d("ERROR", Arrays.toString(e.getStackTrace()));
         }

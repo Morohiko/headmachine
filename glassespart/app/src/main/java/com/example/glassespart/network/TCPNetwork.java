@@ -2,7 +2,8 @@ package com.example.glassespart.network;
 
 import android.util.Log;
 
-import java.io.BufferedWriter;
+import com.example.glassespart.config.TotalConfig;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -20,16 +21,10 @@ public class TCPNetwork {
             try {
                 Log.d("DEBUG", "before create socked ip = " + ipAddress + " port = " + portNumber);
                 socket = new Socket(ipAddress, portNumber);
-
-                Log.d("DEBUG", "after create socked");
                 Log.d("DEBUG", "Socket created with ip: " + ipAddress + ", port: " + portNumber);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        Log.d("DEBUG", "AAAAAA" + portNumber);
-        if (socket == null) {
-            Log.d("DEBUG", "AAAAAA socket is null" + portNumber);
         }
     }
 
@@ -68,7 +63,7 @@ public class TCPNetwork {
                 recvStream = new DataInputStream(socket.getInputStream());
             }
 
-            int buffSize = 614400;
+            int buffSize = TotalConfig.IMAGE_SIZE;
             int size = 0;
 
             int receivedMsgSize;
@@ -88,7 +83,6 @@ public class TCPNetwork {
                     Log.d("ERROR", "size != buffsize");
                     break;
                 }
-//                Log.d("DEBUG", "received message, size = " + size);
             }
 
         } catch (Exception e) {
@@ -96,7 +90,6 @@ public class TCPNetwork {
         }
     }
     private PrintWriter mBufferOut;
-    static BufferedWriter out;
     public void sendMessage(final String message) {
         if (socket == null || !socket.isConnected()) {
             Log.d("ERROR", "tcp socket is null, cannot establish connection, return");
@@ -116,8 +109,7 @@ public class TCPNetwork {
                     mBufferOut.println(message);
                     mBufferOut.flush();
                 } else {
-                    Log.d("DEBUG", "fucking null");
-
+                    Log.d("DEBUG", "buffer is null");
                 }
             }
         };
