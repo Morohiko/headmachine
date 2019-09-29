@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.glassespart.controller.Controller;
 import com.example.glassespart.gyroscope.Gyroscope;
 import com.example.glassespart.network.ConnectionCtx;
 import com.example.glassespart.network.WiFi;
@@ -22,6 +23,8 @@ import com.example.glassespart.network.WifiUDPSocket;
 import com.example.glassespart.config.NetworkConfig;
 import com.example.glassespart.opencv.VideoReceiver;
 import com.example.glassespart.opencv.VideoRecorderActivity;
+
+import static java.lang.Thread.sleep;
 
 public class DebugActivity extends AppCompatActivity {
     private ConnectionCtx TCPContext;
@@ -166,6 +169,25 @@ public class DebugActivity extends AppCompatActivity {
 
     }
 
+    private void debugController() {
+        Button controllerBtn = findViewById(R.id.debugControllerBtn);
+        controllerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Controller controller = new Controller();
+                controller.startController();
+                //TODO: remove it, test only
+                controller.setCameraState(1);
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                controller.setCameraTransmitterState(1);
+            }
+        });
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,8 +198,11 @@ public class DebugActivity extends AppCompatActivity {
 
 //        debugGyroscope();
 //        checkWiFiWotking();
+
         debugVideoRecorder();
         debugVideoReceiver();
+
+        debugController();
     }
 
     private void checkWiFiWotking() {

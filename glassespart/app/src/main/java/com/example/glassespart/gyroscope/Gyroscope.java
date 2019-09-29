@@ -15,12 +15,10 @@ public class Gyroscope {
     private GyroscopeInternal gyroscopeInternal;
     private AsyncTask gyroscopeOverUDPTask;
 
-
     @SuppressLint("Assert")
     public Gyroscope(Activity activity) {
         this.activity = activity;
     }
-
 
     public void startGyroscopeOverUDP(){
         gyroscopeInternal = new GyroscopeInternal(activity);

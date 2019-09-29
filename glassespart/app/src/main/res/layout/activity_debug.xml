@@ -165,4 +165,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/videoRecorder" />
 
+    <Button
+        android:id="@+id/debugControllerBtn"
+        android:layout_width="129dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="27dp"
+        android:text="Controller"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/debugGyroscopeText" />
+
 </android.support.constraint.ConstraintLayout>
