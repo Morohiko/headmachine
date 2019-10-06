@@ -28,6 +28,10 @@ public class WifiUDPSocket extends AsyncTask<ConnectionCtx, Void, Integer> {
 
     private void sendMessage(String msg) {
         try {
+            if (!socket.isConnected()) {
+                Log.d("ERROR", "socket is not connected");
+                return;
+            }
             if (socket.isClosed()) {
                 Log.d("DEBUG", "udp socket is closed");
                 return;

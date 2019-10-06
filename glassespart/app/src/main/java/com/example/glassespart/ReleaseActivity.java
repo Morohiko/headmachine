@@ -1,13 +1,19 @@
 package com.example.glassespart;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.example.glassespart.controller.Controller;
 import com.example.glassespart.gyroscope.Gyroscope;
+import com.example.glassespart.opencv.VideoReceiver;
+import com.example.glassespart.opencv.VideoRecorderActivity;
+
+import static java.lang.Thread.sleep;
 
 public class ReleaseActivity extends AppCompatActivity {
     private Gyroscope gyroscope;
@@ -16,24 +22,38 @@ public class ReleaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
-        initSwitches();
+
+        try {
+            startMPController();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        startVideoReceive();
+        startVideoRecording();
+        startSendGyroscopeData();
     }
 
-    private void initSwitches() {
-        gyroscope = new Gyroscope(this);
+    void startMPController() throws InterruptedException {
+        Controller controller = new Controller();
+        controller.startController();
 
-        Switch gyroscopeSwitch = findViewById(R.id.gyroscopeProcessingSwitch);
-        gyroscopeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    gyroscope.startGyroscopeOverUDP();
-                    Log.d("DEBUG", "gyroscope processing started");
-                } else {
-                    gyroscope.stopGyroscopeOverUDP();
-                    Log.d("DEBUG", "gyroscope processing stoped");
-                }
-            }
-        });
+        controller.setCameraState(1);
+        sleep(2000);
+        controller.setCameraTransmitterState(1);
+        sleep(2000);
+        controller.setGyroscopeReceoverState(1);
+    }
+
+    void startSendGyroscopeData() {
+        gyroscope = new Gyroscope(this);
+        gyroscope.startGyroscopeOverUDP();
+    }
+
+    void startVideoRecording() {
+        startActivity(new Intent(ReleaseActivity.this, VideoRecorderActivity.class));
+    }
+
+    void startVideoReceive() {
+        AsyncTask aa = new VideoReceiver().execute();
     }
 }

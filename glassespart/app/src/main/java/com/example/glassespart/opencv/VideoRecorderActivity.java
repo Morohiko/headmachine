@@ -15,13 +15,23 @@ import org.opencv.android.OpenCVLoader;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+import static android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
+
 public class VideoRecorderActivity extends AppCompatActivity {
     private static final int PERIOD_UPDATE_FRAME = 100;
-
+    private ImageView ivLeft;
+    private ImageView ivRight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_recorder);
+
+        getWindow().setFlags(FLAG_SHOW_WHEN_LOCKED | FLAG_NOT_TOUCH_MODAL, 0xffffff);
+
+        ivLeft = (ImageView) findViewById(R.id.imageViewLeft);
+        ivRight = (ImageView) findViewById(R.id.imageViewRight);
+
         Timer timer = new Timer();
         final AppCompatActivity appCompatActivity = this;
         TimerTask timerTask = new TimerTask() {
@@ -66,16 +76,16 @@ public class VideoRecorderActivity extends AppCompatActivity {
 
     private void updateFrame() {
         Log.d("DEBUG", "update frame");
-        ImageView iv = (ImageView) findViewById(R.id.imageView);
         Bitmap frame = FramesQueue.getInstance().getBitmapFrameFromBytes();
         if (frame == null) {
             Log.d("ERROR", "bitmap frame is null");
             return;
         }
-        iv.setImageBitmap(frame);
+        try {
+            ivLeft.setImageBitmap(frame);
+            ivRight.setImageBitmap(frame);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
-
-
-
-

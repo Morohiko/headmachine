@@ -10,14 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.glassespart.controller.Controller;
 import com.example.glassespart.gyroscope.Gyroscope;
 import com.example.glassespart.network.ConnectionCtx;
 import com.example.glassespart.network.WiFi;
-import com.example.glassespart.network.WifiTCPSocket;
 import com.example.glassespart.network.WifiUDPSocket;
 
 import com.example.glassespart.config.NetworkConfig;

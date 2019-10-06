@@ -66,7 +66,6 @@ public class WifiTCPSocket {
             int size = 0;
 
             while (size >= 0) {
-//                byte[] message = new byte[buffSize];
                 size = recvStream.read(message, 0, buffSize);
                 if (size < 0) {
                     Log.d("ERROR", "size != buffsize");
@@ -74,8 +73,6 @@ public class WifiTCPSocket {
                 }
                 Log.d("DEBUG", "received message, size = " + size);
 
-//TODO: move it to video receiver, frame queue not must be public
-//                FramesQueue.getInstance().pushMessageChumk(message);
             }
             recvStream.close();
 

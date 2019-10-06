@@ -17,7 +17,7 @@ public class Controller {
     private int gyroscopeReceoverState = 0;
     private int motorState = 0;
 
-    PriorityQueue<ControllerCtx> controllerCtxQueue = new PriorityQueue<>();
+    private PriorityQueue<ControllerCtx> controllerCtxQueue = new PriorityQueue<>(10);
 
     private String createMessage(int module, int state) {
         return module + ":" + state;
@@ -85,14 +85,13 @@ class ControllerTCPInternal extends AsyncTask<PriorityQueue<ControllerCtx>, Void
 }
 
 class ControllerCtx {
+    private String message = "";
+
     ControllerCtx(String message) {
         this.message = message;
-
     }
-    private String message = "";
 
     String getMessage() {
         return message;
     }
-
 }
