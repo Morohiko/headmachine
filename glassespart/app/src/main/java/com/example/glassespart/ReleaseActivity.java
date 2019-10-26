@@ -1,7 +1,9 @@
 package com.example.glassespart;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,20 +21,39 @@ public class ReleaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
-
+        boolean success = true;
         try {
-            startMPController();
+            success = startMPController();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        startVideoReceive();
-        startVideoRecording();
-        startSendGyroscopeData();
+        if (success) {
+            startVideoReceive();
+            startVideoRecording();
+            startSendGyroscopeData();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ReleaseActivity.this);
+            builder.setTitle("ERROR")
+                    .setMessage("Cannot establisg connection")
+                    .setCancelable(false)
+                    .setNegativeButton("exit",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    finish();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
 
-    void startMPController() throws InterruptedException {
+    boolean startMPController() throws InterruptedException {
         Controller controller = new Controller();
-        controller.startController();
+        boolean success = controller.startController();
+        if (!success) {
+            return success;
+        }
 
         controller.setCameraState(1);
         sleep(2000);
@@ -41,6 +62,8 @@ public class ReleaseActivity extends AppCompatActivity {
         controller.setGyroscopeReceoverState(1);
         sleep(2000);
         controller.setMotorState(1);
+
+        return success;
     }
 
     void startSendGyroscopeData() {

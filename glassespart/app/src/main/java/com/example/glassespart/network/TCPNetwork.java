@@ -8,7 +8,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class TCPNetwork {
     private Socket socket = null;
@@ -16,15 +18,26 @@ public class TCPNetwork {
     private OutputStreamWriter sendStream = null;
     private DataInputStream recvStream = null;
 
-    public void createConnection(String ipAddress, int portNumber) {
-        while (socket == null) {
-            try {
-                Log.d("DEBUG", "before create socked ip = " + ipAddress + " port = " + portNumber);
-                socket = new Socket(ipAddress, portNumber);
-                Log.d("DEBUG", "Socket created with ip: " + ipAddress + ", port: " + portNumber);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public int createConnection(String ipAddress, int portNumber) {
+        try {
+            Log.d("DEBUG", "before create socked ip = " + ipAddress + " port = " + portNumber);
+            socket = new Socket(ipAddress, portNumber);
+            Log.d("DEBUG", "Socket created with ip: " + ipAddress + ", port: " + portNumber);
+        } catch (ConnectException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (socket == null) {
+            return -1;
+        } else {
+            Log.d("DEBUG", "wtf, socket is not null");
+            return 0;
         }
     }
 

@@ -88,4 +88,9 @@ public class VideoRecorderActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("DEBUG", "back button pressed");
+    }
 }
