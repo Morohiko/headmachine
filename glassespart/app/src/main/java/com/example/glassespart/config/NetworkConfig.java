@@ -4,7 +4,7 @@ public class NetworkConfig {
 // DEFAULT CONFIG
     //private static String DEFAULT_IP_LOCAL_ADDRESS = "192.168.43.183";
     private static String DEFAULT_IP_LOCAL_ADDRESS = "0.0.0.0";
-    private static String DEFAULT_IP_TARGET_ADDRESS = "192.168.43.70";
+    private static String DEFAULT_IP_TARGET_ADDRESS = "192.168.43.162";
 
     private static int DEFAULT_CONTROLLER_LOCAL_PORT = 3332;
     private static int DEFAULT_CONTROLLER_TARGET_PORT = 3331;

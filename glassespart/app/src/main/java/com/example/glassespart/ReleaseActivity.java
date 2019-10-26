@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 
 import com.example.glassespart.controller.Controller;
 import com.example.glassespart.gyroscope.Gyroscope;
@@ -42,6 +39,8 @@ public class ReleaseActivity extends AppCompatActivity {
         controller.setCameraTransmitterState(1);
         sleep(2000);
         controller.setGyroscopeReceoverState(1);
+        sleep(2000);
+        controller.setMotorState(1);
     }
 
     void startSendGyroscopeData() {
