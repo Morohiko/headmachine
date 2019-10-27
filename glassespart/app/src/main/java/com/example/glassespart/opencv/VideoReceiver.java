@@ -46,11 +46,11 @@ public class VideoReceiver extends AsyncTask  {
         }
 
         while (!isFinish) {
-            Log.d("DEBUG", "wait for receive message");
+//            Log.d("DEBUG", "wait for receive message");
             System.arraycopy(emptyArray, 0, byteFrame, 0, TotalConfig.IMAGE_SIZE);
             tcpFrameSocket.receiveMessage(byteFrame);
             if (byteFrame[0] == '\0') {
-                Log.d("DEBUG", "not received any messages, continue");
+//                Log.d("DEBUG", "not received any messages, continue");
                 continue;
             }
             Log.d("DEBUG", "received message");

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.glassespart.controller.Controller;
 import com.example.glassespart.gyroscope.Gyroscope;
@@ -55,13 +56,28 @@ public class ReleaseActivity extends AppCompatActivity {
             return success;
         }
 
-        controller.setCameraState(1);
+        success = controller.setCameraState(1);
+        if (!success) {
+            return success;
+        }
+
         sleep(2000);
-        controller.setCameraTransmitterState(1);
+        success = controller.setCameraTransmitterState(1);
+        if (!success) {
+            return success;
+        }
+
         sleep(2000);
-        controller.setGyroscopeReceoverState(1);
+        success = controller.setGyroscopeReceoverState(1);
+        if (!success) {
+            return success;
+        }
+
         sleep(2000);
-        controller.setMotorState(1);
+        success = controller.setMotorState(1);
+        if (!success) {
+            return success;
+        }
 
         return success;
     }
@@ -73,6 +89,7 @@ public class ReleaseActivity extends AppCompatActivity {
 
     void startVideoRecording() {
         startActivity(new Intent(ReleaseActivity.this, VideoRecorderActivity.class));
+        Log.d("DEBUG", "after start activity");
     }
 
     void startVideoReceive() {

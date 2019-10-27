@@ -9,12 +9,10 @@ import com.example.glassespart.network.TCPNetwork;
 
 import java.util.PriorityQueue;
 
-import static java.lang.Thread.sleep;
+import static android.os.AsyncTask.Status.RUNNING;
 
 public class Controller {
-    boolean connetioncExist = false;
-    TCPNetwork tcpSocket;
-
+    private AsyncTask controllerTCPInternal;
     private int cameraState = 0;
     private int cameraTransmitterState = 0;
     private int gyroscopeReceoverState = 0;
@@ -26,64 +24,109 @@ public class Controller {
         return module + ":" + state;
     }
 
-    public void setCameraState(int cameraState) {
-        if (cameraState == this.cameraState) return;
+    private boolean isConnectionExist() {
+        return controllerTCPInternal.getStatus() == RUNNING;
+    }
+
+    // return false if connecion is not exit(bad behavior/error), true if everything good
+    public boolean setCameraState(int cameraState) {
+        if (!isConnectionExist()) return false;
+        if (cameraState == this.cameraState) return true;
         this.cameraState = cameraState;
-        controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_CAMERA, cameraState), tcpSocket));
+        controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_CAMERA, cameraState)));
+
+        return true;
     }
 
-    public void setCameraTransmitterState(int cameraTransmitterState) {
-        if (cameraTransmitterState == this.cameraTransmitterState) return;
+    // return false if connecion is not exit(bad behavior/error), true if everything good
+    public boolean setCameraTransmitterState(int cameraTransmitterState) {
+        if (!isConnectionExist()) return false;
+        if (cameraTransmitterState == this.cameraTransmitterState) return true;
         this.cameraTransmitterState = cameraTransmitterState;
-        controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_CAMERA_TRANSMITTER, cameraTransmitterState), tcpSocket));
+        try {
+            controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_CAMERA_TRANSMITTER, cameraTransmitterState)));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    public void setGyroscopeReceoverState(int gyroscopeReceoverState) {
-        if (gyroscopeReceoverState == this.gyroscopeReceoverState) return;
+    // return false if connecion is not exit(bad behavior/error), true if everything good
+    public boolean setGyroscopeReceoverState(int gyroscopeReceoverState) {
+        if (!isConnectionExist()) return false;
+        if (gyroscopeReceoverState == this.gyroscopeReceoverState) return true;
         this.gyroscopeReceoverState = gyroscopeReceoverState;
-        controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_GYROSCOPE_RECEIVER, gyroscopeReceoverState), tcpSocket));
+        try {
+            controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_GYROSCOPE_RECEIVER, gyroscopeReceoverState)));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    public void setMotorState(int motorState) {
-        if (motorState == this.motorState) return;
+    // return false if connecion is not exit(bad behavior/error), true if everything good
+    public boolean setMotorState(int motorState) {
+        if (!isConnectionExist()) return false;
+        if (motorState == this.motorState) return true;
         this.motorState = motorState;
-        controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_MOTOR, motorState), tcpSocket));
+        try {
+            controllerCtxQueue.add(new ControllerCtx(createMessage(TotalConfig.CONTROLLER_MOTOR, motorState)));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public boolean startController() {
-        tcpSocket = new TCPNetwork();
-        int retval = tcpSocket.createConnection(NetworkConfig.IP_TARGET_ADDRESS, NetworkConfig.CONTROLLER_TARGET_PORT);
-        if (retval == -1) {
-            Log.d("ERROR", "Cannot create connection");
-
-            return  false;
-        }
-        Log.d("DEBUG", "Controller socket was created");
-
-        AsyncTask controllerTCPInternal = new ControllerTCPInternal().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+        controllerTCPInternal = new ControllerTCPInternal().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                 controllerCtxQueue);
-
-        return connetioncExist;
+        return true;
     }
 }
 
 class ControllerTCPInternal extends AsyncTask<PriorityQueue<ControllerCtx>, Void, Void> {
-//class ControllerTCPInternal {
     private boolean isFinish = false;
 
     public void setFinish(boolean finish) {
         isFinish = finish;
     }
 
+    @SafeVarargs
     @Override
-    protected Void doInBackground(PriorityQueue<ControllerCtx>... controllerCtx) {
+    protected final Void doInBackground(PriorityQueue<ControllerCtx>... controllerCtx) {
+        TCPNetwork tcpSocket = new TCPNetwork();
+
+        int retry = 5;
+        while (retry-- > 0 && !tcpSocket.isConnected()) {
+            tcpSocket.createConnection(NetworkConfig.IP_TARGET_ADDRESS, NetworkConfig.CONTROLLER_TARGET_PORT);
+        }
+
+        if (tcpSocket == null || !tcpSocket.isConnected()) {
+            Log.d("ERROR", "Cannot create connection wit " + NetworkConfig.IP_TARGET_ADDRESS +
+                    ":" + NetworkConfig.CONTROLLER_TARGET_PORT + ", retryes: " + retry);
+            return null;
+        }
+
         while (!isFinish) {
             if (controllerCtx[0].isEmpty()) continue;
-            ControllerCtx ctx = controllerCtx[0].remove();
+            ControllerCtx ctx;
+            try {
+                ctx = controllerCtx[0].remove();
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
 
-            if (ctx.getMessage().length()> 0) {
+            if (!tcpSocket.isConnected()) {
+                Log.d("ERROR", "Cannot create connection wit " + NetworkConfig.IP_TARGET_ADDRESS +
+                        ":" + NetworkConfig.CONTROLLER_TARGET_PORT);
+                break;
+            }
+            Log.d("DEBUG", "Controller socket was created");
+
+            if (ctx.getMessage().length() > 0) {
                 Log.d("DEBUG", "send controller message: " + ctx.getMessage());
-                ctx.tcpSocket.sendMessage(ctx.getMessage());
+                tcpSocket.sendMessage(ctx.getMessage());
             }
         }
         return null;
@@ -91,13 +134,10 @@ class ControllerTCPInternal extends AsyncTask<PriorityQueue<ControllerCtx>, Void
 }
 
 class ControllerCtx {
-    TCPNetwork tcpSocket;
-
     private String message = "";
 
-    ControllerCtx(String message, TCPNetwork tcpSock) {
+    ControllerCtx(String message) {
         this.message = message;
-        this.tcpSocket = tcpSock;
     }
 
     String getMessage() {

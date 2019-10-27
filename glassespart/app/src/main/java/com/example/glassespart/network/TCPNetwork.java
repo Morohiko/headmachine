@@ -18,6 +18,10 @@ public class TCPNetwork {
     private OutputStreamWriter sendStream = null;
     private DataInputStream recvStream = null;
 
+    public boolean isConnected() {
+        return !(socket == null || !socket.isConnected());
+    }
+
     public int createConnection(String ipAddress, int portNumber) {
         try {
             Log.d("DEBUG", "before create socked ip = " + ipAddress + " port = " + portNumber);
@@ -66,7 +70,7 @@ public class TCPNetwork {
 
     public void receiveMessage(byte[] message) {
         if (socket == null || !socket.isConnected()) {
-            Log.d("ERROR", "tcp socket is null, cannot establish connection, return");
+//            Log.d("ERROR", "tcp socket is null, cannot establish connection, return");
             return;
         }
         Log.d("DEBUG","started recv message");

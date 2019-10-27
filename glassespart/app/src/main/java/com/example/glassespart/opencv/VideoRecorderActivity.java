@@ -91,6 +91,7 @@ public class VideoRecorderActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        finish();
         Log.d("DEBUG", "back button pressed");
     }
 }

@@ -16,6 +16,10 @@ public class WifiTCPSocket {
     private OutputStreamWriter sendStream = null;
     private DataInputStream recvStream = null;
 
+    boolean isConnected() {
+        return socket != null;
+    }
+
     private void createConnection(String ipAddress, int portNumber) {
         try {
             Log.d("DEBUG", "before create socked ip = " + ipAddress + " port = " + portNumber);
@@ -110,12 +114,8 @@ public class WifiTCPSocket {
 
             MessageCtx msgCtx = parameter.pullMessageCtx();
 
-            if (msgCtx == null) {
-//                Log.d("DEBUG: ", "parameter[0].pullMessageCtx(op, msg) == -1");
+            if (msgCtx == null)
                 continue;
-            } else {
-//                Log.d("DEBUG", "Something here");
-            }
 
             switch (msgCtx.operation) {
                 case CREATE_CONNECTION:
