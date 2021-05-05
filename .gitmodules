@@ -1,0 +1,3 @@
+[submodule "machinepart"]
+	path = machinepart
+	url = git@github.com:Morohiko/machinepart.git
