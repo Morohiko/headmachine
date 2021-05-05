@@ -1,3 +1,6 @@
 [submodule "machinepart"]
 	path = machinepart
 	url = git@github.com:Morohiko/machinepart.git
+[submodule "glasspart"]
+	path = glasspart
+	url = git@github.com:Morohiko/glasspart.git
